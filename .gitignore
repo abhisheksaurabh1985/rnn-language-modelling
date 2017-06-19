@@ -1,0 +1,11 @@
+# Python
+*.pyc
+
+# Data
+*.csv
+*.npz
+
+# Ignore data directory
+
+
+
