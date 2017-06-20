@@ -54,22 +54,22 @@ print "\ny:\n%s\n%s" % (" ".join([index_to_word[x] for x in y_example]), y_examp
 np.random.seed(10)
 model = RNNNumpy(vocabulary_size)
 o, s = model.forward_propagation(X_train[10])
-print o.shape
-print o
+print "Shape of o", o.shape
+print "o is:", o
 
 predictions = model.predict(X_train[10])
-print predictions.shape
-print predictions
+print "shape predictions", predictions.shape
+print "predictions", predictions
 
 # Limit to 1000 examples to save time
 print "Expected Loss for random predictions: %f" % np.log(vocabulary_size)
 print "Actual loss: %f" % model.calculate_loss(X_train[:1000], y_train[:1000])
 
 # To avoid performing millions of expensive calculations we use a smaller vocabulary size for checking.
-grad_check_vocab_size = 100
-np.random.seed(10)
-model2 = RNNNumpy(grad_check_vocab_size, 10, bptt_truncate=1000)
-model2.gradient_check([0,1,2,3], [1,2,3,4])
+#grad_check_vocab_size = 100
+#np.random.seed(10)
+#model2 = RNNNumpy(grad_check_vocab_size, 10, bptt_truncate=1000)
+#model2.gradient_check([0,1,2,3], [1,2,3,4])
 
 # Outer SGD Loop
 # - model: The RNN model instance

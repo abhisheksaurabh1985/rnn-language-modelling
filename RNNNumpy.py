@@ -20,6 +20,19 @@ class RNNNumpy():
         
     # Forward propagation
     def forward_propagation(self, x):
+        """
+        s[t] is the hidden state at time t. It's the memory of the network. It 
+        is calculated based on the previous hidden state and the input at the 
+        current step: s[t] = f(U * x[t] + W * s[t-1]). function f is usually a 
+        nonlinearity such as ReLU or tanh. s[-1] which is required to calculate
+        the first hidden state is typically initialized to zeros.
+        
+        o[t] is the output at time step t. For example, if we wanted to predict
+        the next word in a sentence it would be a vector of probabilities across
+        our vocabulary. 
+        shape of s: (number of words in input + 1) * (number of hidden units)        
+        shape of o: (number of words in input) * (size of vocabulary)
+        """
         # The total number of time steps
         T = len(x)
         # During forward propagation we save all hidden states in s because need them later.
@@ -31,6 +44,7 @@ class RNNNumpy():
         # For each time step...
         for t in np.arange(T):
             # Note that we are indxing U by x[t]. This is the same as multiplying U with a one-hot vector.
+            # This way each of the x is a one-hot vector of shape (word_dim, 1).
             s[t] = np.tanh(self.U[:,x[t]] + self.W.dot(s[t-1]))
             o[t] = softmax(self.V.dot(s[t]))
         return [o, s]
